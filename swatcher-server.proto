@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service SwatcherServer {
+    rpc GetUpdates(GetUpdatesRequest) returns (GetUpdatesResponse) {}
+    rpc SendUpdates(stream SendUpdatesRequest) returns (SendUpdatesResponse) {}
+}
+
+message GetUpdatesRequest {
+    int64 client_id = 1;
+    int64 rev = 2;
+}
+
+message ServerUpdate {
+    enum UpdateType {
+        ADD = 0;
+        DOWNLOAD = 1;
+        DELETE = 2;
+    }
+    UpdateType type = 1;
+    string data = 2;
+}
+
+message GetUpdatesResponse {
+    repeated ServerUpdate updates = 1;
+}
+
+message SendUpdatesRequest {
+    int64 client_id = 1;
+    enum UpdateType {
+        PROGRESS = 0;
+        STATUS = 1;
+    }
+    UpdateType type = 2;
+    string data = 3;
+}
+
+// TODO: if some updates applied and some not - which answer is it?
+message SendUpdatesResponse {
+
+}
