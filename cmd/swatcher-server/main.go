@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/kilchik/logo/pkg/logo"
-	"github.com/segmentio/kafka-go"
+	pb "github.com/kilchik/swserver/pkg/swatcher-server"
 	"google.golang.org/grpc"
 	"net"
 	"net/http"
@@ -13,13 +13,6 @@ import (
 	swatcher_server "swatcher-server/internal/app/swatcher-server"
 	"swatcher-server/pkg/config"
 	"swatcher-server/pkg/store"
-	pb "swatcher-server/pkg/swatcher-server"
-)
-
-const (
-	kafkaTopicServerEvents = "server-events"
-	kafkaTopicClientEvents = "client-events"
-	kafkaGroupId           = "swserver"
 )
 
 func main() {
@@ -47,25 +40,7 @@ func main() {
 	}
 	storage := store.NewStorage(db)
 
-	// Initiate bus
-	kafkaBrokers := []string{config.GetKafkaBrokers()}
-	//rServerEvents := kafka.NewReader(kafka.ReaderConfig{
-	//	Brokers:kafkaBrokers,
-	//	Topic: kafkaTopicServerEvents,
-	//	GroupID: kafkaGroupId,
-	//})
-	wClientEvents := kafka.NewWriter(kafka.WriterConfig{
-		Brokers: kafkaBrokers,
-		Topic:   kafkaTopicClientEvents,
-	},
-	)
-	rdrClientEvents := kafka.NewReader(kafka.ReaderConfig{
-		Brokers: []string{config.GetKafkaBrokers()},
-		Topic:   kafkaTopicServerEvents,
-		GroupID: kafkaGroupId,
-	})
-
-	srv := swatcher_server.NewSWServerImpl(storage, rdrClientEvents, wClientEvents)
+	srv := swatcher_server.NewSWServerImpl(storage)
 
 	// Create and start HTTP server
 	http.HandleFunc("/add", srv.Add)

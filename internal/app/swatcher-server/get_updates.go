@@ -3,8 +3,8 @@ package swatcher_server
 import (
 	"context"
 	"database/sql"
+	pb "github.com/kilchik/swserver/pkg/swatcher-server"
 	"github.com/pkg/errors"
-	pb "swatcher-server/pkg/swatcher-server"
 )
 
 func (s *SWServerImpl) GetUpdates(ctx context.Context, req *pb.GetUpdatesRequest) (resp *pb.GetUpdatesResponse, err error) {

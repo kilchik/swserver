@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"github.com/kilchik/logo/pkg/logo"
 	"github.com/pkg/errors"
-	"github.com/segmentio/kafka-go"
 	"io"
+	"log"
 	"swatcher-server/pkg/store"
-	pb "swatcher-server/pkg/swatcher-server"
+	pb "github.com/kilchik/swserver/pkg/swatcher-server"
 )
 
 // TODO: debug log interceptor
@@ -35,9 +35,6 @@ func (s *SWServerImpl) SendUpdates(req pb.SwatcherServer_SendUpdatesServer) erro
 			return errors.Wrap(err, "failed to encode event from request")
 		}
 
-		if err := s.wClientEvents.WriteMessages(context.Background(), kafka.Message{Key: nil, Value: event}); err != nil {
-			logo.Error(ctx, "send updates: write message to kafka: %v", err)
-			return errors.Wrap(err, "failed to write message to kafka")
-		}
+		log.Println(event)
 	}
 }
