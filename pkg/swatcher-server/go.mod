@@ -1,3 +1,3 @@
-module pkg/swatcher-server
+module github.com/kilchik/swserver/pkg/swatcher-server
 
 go 1.12
