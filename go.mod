@@ -13,11 +13,7 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/shopspring/decimal v0.0.0-20190905144223-a36b5d85f337 // indirect
-	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7 // indirect
-	golang.org/x/net v0.0.0-20190912160710-24e19bdeb0f2 // indirect
-	golang.org/x/sys v0.0.0-20190913121621-c3b328c6e5a7 // indirect
-	golang.org/x/text v0.3.2 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	google.golang.org/genproto v0.0.0-20190911173649-1774047e7e51 // indirect
 	google.golang.org/grpc v1.23.1
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
